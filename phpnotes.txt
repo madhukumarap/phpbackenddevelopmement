@@ -1,0 +1,5 @@
+autoloadig, psr and composer
+spl_autoload_register(function(classname){
+    //it automatically load class and interfcae alrefy include ,it accept prepen argument with boolean values
+})
+PSR ->PHP STANDARED RECOMMANDEATION
