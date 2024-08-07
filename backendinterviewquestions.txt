@@ -1,0 +1,44 @@
+Explain what an API endpoint is?
+-> an endpoint api is a specific URL that act as an entry point into specific service or functionality with service
+-> Through an API endpoint, client applications can interact with the server sending requests (sometimes even with data in the form of payload) and receive a response from it.
+
+2 Can you explain the difference between SQL and NoSQL databases?
+SQL databases (or relational databases as they’re also known) rely on a predefined schema (or structure) for their data. Whenever you describe a record, or table inside the database, you do so through its format (name and fields).
+
+In the case of a NoSQL database, there is no schema, so there is no predefined structure to the data. You usually have collections of records that are not obligated to have the same structure, even if they represent conceptually the same thing.
+
+What is a RESTful API, and what are its core principles?
+->For an API to be RESTful (which means it complies with the REST guidelines), it needs to:
+->it needsto be follow the client-side architecure
+ it has provide uniforma interface means:
+    ->there should be way to identify resourecs from each other through uris(uniform resources identification).
+    ->there should we way to modify the resources through their representation.
+    ->Messages should be self descriptive, meaning that each message should provide enough information to understand how to process it.
+    ->Clients using the API should be able to discover actions available for the current resource using the provided response from the server (this is known as HATEOAS or Hypermedia as the Engine of Application State).
+->Clients using the API should be able to discover actions available for the current resource using the provided response from the server (this is known as HATEOAS or Hypermedia as the Engine of Application State).
+->It should be a layered system, meaning that client and server don’t have to be connected directly to each other, there might be intermediaries, but that should not affect the communication between client and server
+->Resources should be cacheable either by client or by server.
+Can you describe a typical HTTP request/response cycle?
+The HTTP protocol is very structured and consists of a very well-defined set of steps:
+
+Open the connection. The client opens a TCP connection to the server. The port will be port 80 for HTTP connections and 443 for HTTPS (secured) connections.
+Send the request. The client will now send the HTTP request to the server. The request contains the following information:
+An HTTP method. It can be any of them (i.e. GET, POST, PUT, DELETE, etc).
+A URI (or Uniform Resource Identifier). This specifies the location of the resources on the server.
+The HTTP version (usually HTTP/1.1 or HTTP/2).
+A set of headers. They include extra data related to the request; there is a full list of HTTP headers that can be used here.
+The optional body. Depending on the type of request, you’ll want to also send data, and the data is encoded inside the body of the request.
+Request processed by the server. At this stage, the server will process the request and prepare a response.
+Send the HTTP response back to the client. Through the open channel, the server sends back an HTTP response. The response will contain the following elements:
+The HTTP Version.
+The status code. There is a list of potential status codes that describe the result of the request.
+A set of headers with extra data.
+The optional body, just like with the request, the body of the response is optional.
+The connection is closed. This is usually the last step, although with newer versions of the protocol, there are options to leave the channel open and continue sending requests and responses back and forth
+
+How would you handle file uploads in a web application?
+->From a backend developer perspective, the following considerations should be taken into account when handling file uploads regardless of the programming language you’re using:
+
+->Perform server-side validations. Validate that the size of your file is within range, and that the file is of the required type. You can check this OWASP guide for more details.
+->Avoid name collision. Rename the file ensuring the new filename is unique within your system. Otherwise this can lead to application errors by not being able to save the uploaded files.
+->Keep metadata about your files. Store it in your database or somewhere else, but make sure to keep track of it, so you can provide extra information to your users. Also, if you’re renaming the files for security and to avoid name collisions, keep track of the original filename in case the file needs to be downloaded back by the user.
