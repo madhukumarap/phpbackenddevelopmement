@@ -5,3 +5,12 @@ spl_autoload_register(function(classname){
 PSR ->PHP STANDARED RECOMMANDEATION
 
 composer is dependency and tools for over project
+
+php is single inheritence languaes doesn'tsupoort multiple inheritence;
+we can extends single class we can also extends multiple class using the interfcae or traits
+
+
+traitswork as copy paste
+->precedence method override when we define method in base class but  not override in child class
+
+instead operator are use to solve the method confilct error 
