@@ -14,3 +14,9 @@ traitswork as copy paste
 ->precedence method override when we define method in base class but  not override in child class
 
 instead operator are use to solve the method confilct error 
+
+anonomus class accpet argument thorugh class
+in this we can use extends interfcae and traits as same as regular class
+
+
+serialize object and method
