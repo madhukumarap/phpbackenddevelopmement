@@ -20,3 +20,4 @@ in this we can use extends interfcae and traits as same as regular class
 
 
 serialize object and method
+it will serialize the properties and value  object and class it not serailizee the method
