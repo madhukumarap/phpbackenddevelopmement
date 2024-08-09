@@ -21,3 +21,22 @@ in this we can use extends interfcae and traits as same as regular class
 
 serialize object and method
 it will serialize the properties and value  object and class it not serailizee the method
+
+superglobals 
+Key Concepts of Routing
+Routes:
+
+A route is a URL pattern that is associated with a specific function or piece of code in your application.
+For example, if a user visits http://yourwebsite.com/about, the route /about would be mapped to a function that displays the "About Us" page.
+Routing Table:
+
+The routing table is a collection of routes. Each route consists of a URL pattern and the corresponding action (function) to execute.
+The router checks the URL of the incoming request against this table to determine which function to execute.
+Route Matching:
+
+When a request comes in, the router will try to match the request's URL to one of the routes in its routing table.
+If a match is found, the corresponding action is executed. If no match is found, the router typically returns a 404 error.  
+-< super globals are built in var are always avaible
+$_SERVER,->it conatine info about server. 
+$_GET, ->
+$_POST  $_FILES, $_COOKIE, $_SESSION, $_REQUEST, $_ENV 
