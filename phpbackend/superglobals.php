@@ -1,26 +1,68 @@
 <?php
 declare(strict_types=1);
 
+class Invoice
+{
+    public function index(): string
+    {
+        return 'Invoices';
+    }
+
+    public function create(): string 
+    {
+        return '<form action="/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create" method="post">
+                    <label for="amount">Amount</label> 
+                    <input type="text" name="amount" id="amount" />
+                    <button type="submit">Submit</button>
+                </form>';
+    }
+
+    public function store() 
+    {
+        $amount = $_POST['amount'] ?? null;
+        if ($amount) {
+            echo 'Amount: ' . htmlspecialchars($amount);
+        } else {
+            echo 'No amount was submitted.';
+        }
+    }
+}
+
 class Router
 {
     private array $routes = [];
 
-    public function register(string $route, callable $action)
+    public function register(string $requestMethod, string $route, callable|array $action): self
     {
-        $this->routes[$route] = $action;
+        $this->routes[$requestMethod][$route] = $action;
         return $this;
     }
 
-    public function resolve(string $requestURI)
+    public function get(string $route, callable|array $action): self
+    {
+        return $this->register('get', $route, $action);
+    }
+
+    public function post(string $route, callable|array $action): self
+    {
+        return $this->register('post', $route, $action);
+    }
+
+    public function routes(): array
+    {
+        return $this->routes;
+    }
+
+    public function resolve(string $requestURI, string $requestMethod)
     {
         $route = explode('?', $requestURI)[0];
-        $action = $this->routes[$route] ?? null;
+        $action = $this->routes[$requestMethod][$route] ?? null;
 
         if (!$action) {
             throw new RouterBaseException();
         }
         
-        call_user_func($action);
+        echo call_user_func($action);
     }
 }
 
@@ -31,23 +73,46 @@ class RouterBaseException extends Exception
 
 // Usage example
 $router = new Router();
-$router->register('/phpbackenddevelopmement/phpbackend/superglobals.php/about', 
-function(){
-    echo 'About us';
-});
+$invoice = new Invoice();
 
-$router->register('/phpbackenddevelopmement/phpbackend/superglobals.php/contact', 
-function(){
-    echo 'Contact us';
-});
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/about', 
+    function() {
+        return 'About us';
+    }
+);
 
-$router->register('/phpbackenddevelopmement/phpbackend/superglobals.php/services', 
-function(){
-    echo 'Our services';
-});
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/contact', 
+    function() {
+        return 'Contact us';
+    }
+);
+
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/services', 
+    function() {
+        return 'Our services';
+    }
+);
+
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoices', 
+    function() use ($invoice) {
+        return $invoice->index();
+    }
+);
+
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', 
+    function() use ($invoice) {
+        return $invoice->create();
+    }
+);
+
+$router->post('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', 
+    function() use ($invoice) {
+        return $invoice->store();
+    }
+);
 
 try {
-    $router->resolve($_SERVER['REQUEST_URI']);
+    $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
 } catch (RouterBaseException $e) {
     echo $e->getMessage();
 }

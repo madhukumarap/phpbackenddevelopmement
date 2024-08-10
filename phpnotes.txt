@@ -38,5 +38,6 @@ When a request comes in, the router will try to match the request's URL to one o
 If a match is found, the corresponding action is executed. If no match is found, the router typically returns a 404 error.  
 -< super globals are built in var are always avaible
 $_SERVER,->it conatine info about server. 
-$_GET, ->
-$_POST  $_FILES, $_COOKIE, $_SESSION, $_REQUEST, $_ENV 
+$_GET, -> send data to client GET is used to request data from a specified resource.
+$_POST -> send data to backend POST is used to send data to a server to create/update a resource.
+ $_FILES, $_COOKIE, $_SESSION, $_REQUEST, $_ENV 
