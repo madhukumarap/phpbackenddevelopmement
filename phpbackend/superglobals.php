@@ -1,10 +1,29 @@
 <?php
 declare(strict_types=1);
+session_start();
 
+class Home 
+{
+    public function index(): string 
+
+    {
+        //example for sessions
+        // $_SESSION['count'] = ($_SESSION['count']??0 )+1;
+        setcookie(
+            'username',
+            'madhu',
+            time() +(24 * 60 * 60)
+
+        );
+        return 'Hello, World!';
+    }
+}
 class Invoice
 {
     public function index(): string
     {
+        // var_dump($_SESSION);
+        unset($_SESSION['count']);
         return 'Invoices';
     }
 
@@ -74,7 +93,7 @@ class RouterBaseException extends Exception
 // Usage example
 $router = new Router();
 $invoice = new Invoice();
-
+$home = new Home();
 $router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/about', 
     function() {
         return 'About us';
@@ -104,7 +123,17 @@ $router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/creat
         return $invoice->create();
     }
 );
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/index', 
+function() use ($invoice) {
+    return $invoice->index();
+}
+);
 
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/home', 
+function() use ($home) {
+    return $home->index();
+}
+);
 $router->post('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', 
     function() use ($invoice) {
         return $invoice->store();
@@ -116,3 +145,6 @@ try {
 } catch (RouterBaseException $e) {
     echo $e->getMessage();
 }
+
+// echo "hello";
+var_dump($_COOKIE);

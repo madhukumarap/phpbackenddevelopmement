@@ -40,4 +40,10 @@ If a match is found, the corresponding action is executed. If no match is found,
 $_SERVER,->it conatine info about server. 
 $_GET, -> send data to client GET is used to request data from a specified resource.
 $_POST -> send data to backend POST is used to send data to a server to create/update a resource.
- $_FILES, $_COOKIE, $_SESSION, $_REQUEST, $_ENV 
+ $_FILES, 
+ $_COOKIE->cookie is stored in client sideand it save till experise date , 
+ $_SESSION-> session are stored in server side , 
+ $_REQUEST, $_ENV 
+
+file upload
+$_FILES->this associated array we use toupload the file
