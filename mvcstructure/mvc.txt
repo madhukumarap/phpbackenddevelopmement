@@ -1,0 +1,9 @@
+MVC
+M->Model
+V->VIEW
+C->CONTROLLER
+how request go from client to server
+req(cient,user,browser can send call or req server the reqs goto controller)->controller(controller is middle where responsible for req, res and sourse)->model(manage the bussiness logic manage the data anythig process and stroe the data )->DATABASE(get data from model and store in database) ; they work in vicaverse
+public dir is view dir
+app dir contain controller model and view 
+core -> contain core functionlaity 

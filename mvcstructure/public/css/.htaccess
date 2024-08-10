@@ -1,0 +1,7 @@
+Options -Multiviews
+RewriteEngine On
+
+RewriteBase /phpbackenddevelopmement/mvcstructure/public
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
