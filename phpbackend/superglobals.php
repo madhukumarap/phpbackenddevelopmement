@@ -144,7 +144,9 @@ try {
     $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
 } catch (RouterBaseException $e) {
     echo $e->getMessage();
+    http_response_code(404);
+
 }
 
 // echo "hello";
-var_dump($_COOKIE);
+// var_dump($_COOKIE);
