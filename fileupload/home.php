@@ -16,7 +16,12 @@ class Home
          // </form>
          // FORM;
     }
-
+    public function download()
+    {
+        header('Content-Type:application/pdf');
+        header('Content-Disposition:attachment;filename="myfile.pdf"');
+        readfile(STORAGE_PATH . '/storage/slack.zip');
+    }
     public function index1(): string
     {
         // Form to upload multiple files
@@ -57,3 +62,4 @@ echo $home->index1();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $home->upload();
 }
+// echo $home->download();
