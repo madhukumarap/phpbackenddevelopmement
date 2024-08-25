@@ -1,6 +1,7 @@
 <?php
+
 declare(strict_types=1);
-session_start();
+namespace phpbackend;
 
 class Home 
 {
@@ -77,11 +78,16 @@ class Router
         $route = explode('?', $requestURI)[0];
         $action = $this->routes[$requestMethod][$route] ?? null;
 
-        if (!$action) {
-            throw new RouterBaseException();
-        }
+         if (!$action) {
+                throw new RouterBaseException();
+            }
         
-        echo call_user_func($action);
+            if (is_array($action)) {
+                [$controller, $method] = $action;
+                echo call_user_func([new $controller, $method]);
+            } else {
+                echo call_user_func($action);
+            }
     }
 }
 
@@ -90,10 +96,12 @@ class RouterBaseException extends Exception
     protected $message = '404 not found';
 }
 
-// Usage example
+// Instantiate your Router and controllers
 $router = new Router();
 $invoice = new Invoice();
 $home = new Home();
+
+// Define your routes using controller methods
 $router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/about', 
     function() {
         return 'About us';
@@ -112,41 +120,18 @@ $router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/services',
     }
 );
 
-$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoices', 
-    function() use ($invoice) {
-        return $invoice->index();
-    }
-);
+// Use controller methods directly in route definitions
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/index', [Invoice::class, 'index']);
 
-$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', 
-    function() use ($invoice) {
-        return $invoice->create();
-    }
-);
-$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/index', 
-function() use ($invoice) {
-    return $invoice->index();
-}
-);
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', [Invoice::class, 'create']);
 
-$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/home', 
-function() use ($home) {
-    return $home->index();
-}
-);
-$router->post('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', 
-    function() use ($invoice) {
-        return $invoice->store();
-    }
-);
+$router->post('/phpbackenddevelopmement/phpbackend/superglobals.php/invoice/create', [Invoice::class, 'store']);
+
+$router->get('/phpbackenddevelopmement/phpbackend/superglobals.php/home', [Home::class, 'index']);
 
 try {
     $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
 } catch (RouterBaseException $e) {
     echo $e->getMessage();
     http_response_code(404);
-
 }
-
-// echo "hello";
-// var_dump($_COOKIE);

@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":[]}
+{"version":1,"defects":{"RouterTest::test_it_registers_a_route":4,"RouterTest::test_that_it_registers_a_route":4},"times":{"RouterTest::test_it_registers_a_route":0.006,"RouterTest::test_that_it_registers_a_route":0.009}}
